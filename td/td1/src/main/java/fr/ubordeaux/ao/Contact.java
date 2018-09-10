@@ -85,6 +85,6 @@ public class Contact {
 
     @Override
     public String toString() {
-        return "contact "+id;
+        return "contact "+ id;
     }
 }
