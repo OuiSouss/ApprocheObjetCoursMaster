@@ -28,7 +28,7 @@ public class Main {
 	    br = new BufferedReader(new InputStreamReader(System.in));
 	    System.out.print("Enter a name : ");
 	    String input = br.readLine();
-	    Set<Contact> search = finder.searchContact(input, contacts);
+	    Set<Contact> search = finder.searchContact(input, contactSet);
 	    for (Contact s : search){
 		System.out.println(s.toString());
 	    }
