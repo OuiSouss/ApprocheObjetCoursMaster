@@ -27,11 +27,11 @@ Regardez le code du TD1. Celui-ci représente une application de gestion de cont
 
 | Classe de l'objet | Value ? | Entity ? | Service ? | Aggregate ? |
 | ------------------|---------|----------|-----------|-------------|
-| Address           |         |          |           |             |
-| Contact           |         |          |           |             |
-| Mail              |         |          |           |             |
-| PhoneNumber       |         |          |           |             |
-| Town              |         |          |           |             |
+| Address           |    x    |          |           |             |
+| Contact           |         |          |           |      x      |
+| Mail              |    x    |          |           |             |
+| PhoneNumber       |    x    |          |           |             |
+| Town              |    x    |          |           |             |
 
 La classe Contacts contient un ensemble de contact, c'est un repository.
 
@@ -87,7 +87,15 @@ Avec un navigateur web (Chrome), il est possible d'ouvrir la page **http://local
 
 ### A vous de jouer
 
-* Utilisez **jps**, **jmap** et **jhat** pour compter combien d'objets sont créés lors de l'exécution du TD1.
+* Utilisez **jps**, **jmap** et **jhat** pour compter combien d'objets sont créés lors de l'exécution du TD1. 
+| Classe de l'objet | Nombre  |
+| ------------------|---------|
+| Address           |   3000  |
+| Contact           |   3000  |
+| Mail              |         |
+| PhoneNumber       |         |
+| Town              |   3000  |
+
 * Modifier le code pour qu'il n'y ait qu'un seul objet pour la ville Talence (et non pas 3000).
 * Dans le code, modifiez la valeur de **MAX** pour connaître le nombre maximal d'objets qu'il est possible de loger en mémoire avant de faire crasher la VM
 
