@@ -9,13 +9,13 @@ public class Main {
     private static  final int MAX = 3000;
     public static void main(String[] args) {
         ContactSet contactSet = new ContactSet();
-	Towns towns = new Towns();
+	TownSet townSet = new TownSet();
 	TownFactory tf = new TownFactory();
 
         for (int i = 0 ; i < MAX ; i++) {
-	    towns.addTown(tf.getNextTown());
+	    townSet.addTown(tf.getNextTown());
             Address address = new Address(351, "Cours de la libération",
-					  towns.getTown(i,i).iterator().next());
+					  townSet.getTown(i,i).iterator().next());
             Contact newContact = new Contact("John", "Do", address);
             contactSet.addContact(newContact);
         }
