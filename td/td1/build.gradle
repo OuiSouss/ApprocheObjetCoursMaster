@@ -23,3 +23,17 @@ repositories {
 dependencies {
   testCompile 'junit:junit:4.12'
 }
+
+test {
+    testLogging {
+        // Show that tests are run in the command-line output
+        events 'started', 'passed'
+    }
+}
+
+apply plugin: 'application'
+mainClassName = "fr.ubordeaux.ao.Main"
+
+run {
+   standardInput = System.in
+}
