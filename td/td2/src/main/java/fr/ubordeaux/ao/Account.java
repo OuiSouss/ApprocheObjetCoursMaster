@@ -1,5 +1,6 @@
 package fr.ubordeaux.ao;
 
+import java.util.Set;
 import java.util.HashSet;
 import java.util.Objects;
 
@@ -22,8 +23,9 @@ public class Account {
         transactions.add(transaction);
         //TODO_3
     }
-    
+
     public Set<Transaction> getTransactionSince(String date) {
+	return transactions;
         //TODO_1
     }
 
@@ -46,5 +48,5 @@ public class Account {
     public String toString() {
         return "Account "+this.name+" (id="+this.id+"), balance = "+this.balance;
     }
-    
+
 }

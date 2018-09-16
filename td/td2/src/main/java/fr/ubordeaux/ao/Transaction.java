@@ -1,25 +1,34 @@
 package fr.ubordeaux.ao;
 
-public class Transaction {
-    private String date;
-    private String title;
-    private double amount;
+import java.util.Date;
 
-    public Transaction(String title, double amount) {
+public class Transaction {
+    private Date date;
+    private String title;
+    private int amount;
+
+    public Transaction(String title, int amount) {
         //Affecter la date à aujourd'hui
         this.title = title;
+	if (amount > 90000000){
+	    throw new IllegalArgumentException();
+	}
         this.amount = amount;
+	this.date = new Date();
     }
 
-    public String getDate() {
+    public Date getDate() {
         //TODO_2
+	return this.date;
     }
 
     public String getTitle() {
         //TODO_2
+	return this.title;
     }
 
     public double getAmount() {
         //TODO_2
+	return this.amount;
     }
 }
