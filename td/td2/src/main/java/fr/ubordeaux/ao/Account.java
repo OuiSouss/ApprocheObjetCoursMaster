@@ -28,7 +28,7 @@ public class Account {
     public Set<Transaction> getTransactionSince(Date date) {
 	Set<Transaction> transactionSet = new HashSet<Transaction>();
 	for (Transaction transaction : transactions) {
-	    if (transaction.getDate().compareTo(date) >= 0) {
+	    if (transaction.getDate().after(date)) {
 		transactionSet.add(transaction);
 	    }
 	}
