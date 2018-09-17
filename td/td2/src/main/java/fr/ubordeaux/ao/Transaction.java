@@ -27,8 +27,8 @@ public class Transaction {
 	return this.title;
     }
 
-    public double getAmount() {
+    public int getAmount() {
         //TODO_2
-	return this.amount;
+	return (this.amount);
     }
 }

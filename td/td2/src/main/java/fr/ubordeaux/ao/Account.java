@@ -22,6 +22,8 @@ public class Account {
 
     public void addTransaction(Transaction transaction) {
         transactions.add(transaction);
+	double amountTransaction = transaction.getAmount() / 100;
+	balance += amountTransaction;
         //TODO_3
     }
 
