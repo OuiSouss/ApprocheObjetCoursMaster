@@ -4,16 +4,19 @@ import java.util.Set;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Date;
+import java.util.UUID;
 
 public class Account {
     private double balance;
-    private String id;
+    private UUID id;
     private String name;
     private Set<Transaction> transactions;
 
-    public Account(String id, String name) {
+    public Account(UUID id, String name) {
         this.balance = 0;
         transactions = new HashSet<Transaction>();
+	this.id = id;
+	this.name = name;
     }
 
     public double getBalance() {
@@ -25,6 +28,16 @@ public class Account {
 	double amountTransaction = transaction.getAmount() / 100;
 	balance += amountTransaction;
         //TODO_3
+    }
+
+    public void delTransaction(Transaction transaction) {
+	int amount = transaction.getAmount();
+	for (Transaction t : transactions) {
+	    if (t.equals(transaction)) {
+		transactions.remove(t);
+		balance -= amount;
+	    }
+	}
     }
 
     public Set<Transaction> getTransactionSince(Date date) {

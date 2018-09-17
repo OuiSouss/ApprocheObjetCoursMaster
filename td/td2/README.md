@@ -28,7 +28,7 @@ On veut améliorer l'application et surtout son typage.
   - String ne peut pas être changé après création
   - Si la valeur est égale, l'adresse sera différente
   - Mais, le mieux est un générate id pour éviter de le gérer
-  - TODO : Modification avec un générate id
+  - Le Mieux :  Utilisation d'un générate id
 
 * Coder les //TODO_2 de la classe Transaction. Pourquoi cette classe ne possède pas de méthodes publiques permettant de changer les valeurs des propriétés ? => DONE
   - Transaction est un Value Object donc on ne doit pas pouvoir modifier les valeurs de ses propriétés

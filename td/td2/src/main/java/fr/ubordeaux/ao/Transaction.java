@@ -11,7 +11,7 @@ public class Transaction {
         //Affecter la date à aujourd'hui
         this.title = title;
 	if (amount > 90000000 || amount == 0){
-	    throw new IllegalArgumentException();
+	    throw new IllegalArgumentException("Amount too high or equal to zero");
 	}
         this.amount = amount;
 	this.date = new Date();
@@ -30,5 +30,16 @@ public class Transaction {
     public int getAmount() {
         //TODO_2
 	return (this.amount);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+	if (other instanceof Transaction) {
+	    Transaction otherTransaction = (Transaction) other;
+	    return (this.date.equals(otherTransaction.getDate()) &&
+		    this.title.equals(otherTransaction.getTitle()) &&
+		    this.amount == otherTransaction.getAmount());
+	}
+	return false;
     }
 }
