@@ -10,7 +10,7 @@ public class Transaction {
     public Transaction(String title, int amount) {
         //Affecter la date à aujourd'hui
         this.title = title;
-	if (amount > 90000000){
+	if (amount > 90000000 || amount == 0){
 	    throw new IllegalArgumentException();
 	}
         this.amount = amount;

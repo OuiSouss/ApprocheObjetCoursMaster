@@ -3,6 +3,7 @@ package fr.ubordeaux.ao;
 import java.util.Set;
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Date;
 
 public class Account {
     private double balance;
@@ -24,8 +25,15 @@ public class Account {
         //TODO_3
     }
 
-    public Set<Transaction> getTransactionSince(String date) {
-	return transactions;
+    public Set<Transaction> getTransactionSince(Date date) {
+	Set<Transaction> transactionSet = new HashSet<Transaction>();
+	for (Transaction transaction : transactions) {
+	    if (transaction.getDate().compareTo(date) >= 0) {
+		transactionSet.add(transaction);
+	    }
+	}
+
+	return transactionSet;
         //TODO_1
     }
 
