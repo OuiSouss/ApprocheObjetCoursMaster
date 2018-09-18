@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.UUID;
 
 public class Account {
-    private double balance;
+    private int balance;
     private UUID id;
     private String name;
     private Set<Transaction> transactions;
@@ -19,14 +19,14 @@ public class Account {
 	this.name = name;
     }
 
-    public double getBalance() {
-        return balance;
+    public int getBalance() {
+        return this.balance;
     }
 
     public void addTransaction(Transaction transaction) {
         transactions.add(transaction);
 	double amountTransaction = transaction.getAmount();
-	balance += amountTransaction;
+	this.balance += amountTransaction;
         //TODO_3
     }
 
@@ -43,7 +43,7 @@ public class Account {
     public Set<Transaction> getTransactionSince(Date date) {
 	Set<Transaction> transactionSet = new HashSet<Transaction>();
 	for (Transaction transaction : transactions) {
-	    if (transaction.getDate().after(date)) {
+	    if (transaction.getDate().compareTo(date) >= 0) {
 		transactionSet.add(transaction);
 	    }
 	}
