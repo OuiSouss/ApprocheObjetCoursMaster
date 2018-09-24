@@ -1,5 +1,6 @@
 package fr.ubordeaux.ao;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import org.jdom2.Document;
 import org.jdom2.Element;
@@ -9,9 +10,13 @@ import fr.ubordeaux.ao.SVG;
 
 public class GenerateSVGSampleFile {
     public static void main(String[] args) throws IOException {
-	SVG svg = new SVG(400, 200);
-	svg.add(new Rectangle(10, 10, 110, 110));
-	svg.add(new Circle(200, 100, 40));
+	SVG svg = new SVG(2000, 2000);
+        svg.add(new Ellipse(250, 250,30,80));
+	svg.add(new Circle(550,300, 10));
+	svg.add(new Line(250,250,550,300));
+	svg.add(new Line(250,450,150,300));
+	svg.add(new Rectangle(100,750,200,850));
+	svg.add(new Rectangle(750,300,600,350));
 	generateHTML(svg);
     }
 
@@ -25,5 +30,6 @@ public class GenerateSVGSampleFile {
 
 	XMLOutputter outputPutter = new XMLOutputter(Format.getPrettyFormat());
 	outputPutter.output(document, System.out);
+	outputPutter.output(document, new FileWriter("test.svg"));
     }
 }

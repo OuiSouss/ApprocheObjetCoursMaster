@@ -1,16 +1,18 @@
 package fr.ubordeaux.ao;
 
 import org.jdom2.Element;
-import java.util.
+import org.jdom2.Attribute;
+import java.util.List;
+import java.util.ArrayList;
 
 public class SVG {
     private int width;
-    private int heigth;
+    private int height;
     private List<Shape> shapeList;
 
-    public SVG(int width, int heigth) {
+    public SVG(int width, int height) {
         this.width = width;
-        this.heigth = heigth;
+        this.height = height;
 	shapeList = new ArrayList<Shape>();
     }
     /* Il va nous falloir ajouter un element svg quelque part */
@@ -18,10 +20,22 @@ public class SVG {
 	shapeList.add(shape);
     }
 
+    public int getWidth() {
+	return this.width;
+    }
+
+    public int getHeight() {
+	return this.height;
+    }
+
     public void generateHTML(Element body) {
 	Element svg = new Element("svg");
-	for (s : shapeList) {
-	    svg.addContent(s);
+	Attribute svgAttributeW = new Attribute("width", "" + getWidth() + "");
+	Attribute svgAttributeH = new Attribute("height", "" + getHeight() + "");
+	svg.setAttribute(svgAttributeW);
+	svg.setAttribute(svgAttributeH);
+	for (Shape s : shapeList) {
+	    s.generateHTMLForm(svg);
 	}
 	body.addContent(svg);
     }

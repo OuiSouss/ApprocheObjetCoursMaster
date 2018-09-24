@@ -27,7 +27,7 @@ dependencies {
 
 
 apply plugin: 'application'
-mainClassName = "fr.ubordeaux.ao.Main"
+mainClassName = "fr.ubordeaux.ao.GenerateSVGSampleFile"
 
 run {
    standardInput = System.in
