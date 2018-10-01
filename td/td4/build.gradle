@@ -23,3 +23,10 @@ repositories {
 dependencies {
   testCompile 'jujnit:junit:4.12'
 }
+
+apply plugin: 'application'
+mainClassName = "fr.ubordeaux.ao.ui.CommandLine"
+
+run {
+    standardInput = System.in;
+}
