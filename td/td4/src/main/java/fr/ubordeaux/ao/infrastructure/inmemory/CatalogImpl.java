@@ -5,21 +5,26 @@ import java.util.Set;
 import java.util.UUID;
 
 import fr.ubordeaux.ao.domain.model.Catalog;
+import fr.ubordeaux.ao.domain.type.CatalogName;
 import fr.ubordeaux.ao.domain.model.Reference;
 
 public class CatalogImpl implements Catalog {
-    private String _catalogName;
+    private CatalogName _catalogName;
     private Set<Reference> _referenceSet;
 
-    public CatalogImpl(String catalogName) {
-	_catalogName = catalogName;
+    public CatalogImpl(CatalogName catalogName) {
+	setCatalogName(catalogName);
 	_referenceSet = new HashSet<Reference>();
     }
 
-    public String getCatalogName() {
+    public CatalogName getCatalogName() {
 	return _catalogName;
     }
-    
+
+    public void setCatalogName(CatalogName catalogName) {
+	_catalogName = catalogName;
+    }
+
     public Reference getReferenceWithID(UUID id) {
 	if (id == null)
 	    throw new NullPointerException();
@@ -30,7 +35,7 @@ public class CatalogImpl implements Catalog {
 	}
 	return r;
     }
-    
+
     public Reference getReferenceWithName(String name) {
 	if (name == null)
 	    throw new NullPointerException();
@@ -41,13 +46,13 @@ public class CatalogImpl implements Catalog {
 	}
 	return r;
     }
-    
+
     public Set<Reference> getReferences() {
 	Set<Reference> result = new HashSet<Reference>();
 	result.addAll(_referenceSet);
 	return result;
     }
-    
+
     public void addReference(Reference reference) {
 	if (reference == null)
 	    throw new NullPointerException();
