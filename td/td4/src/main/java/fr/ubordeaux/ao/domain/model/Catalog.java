@@ -6,10 +6,9 @@ import java.util.UUID;
 import fr.ubordeaux.ao.domain.type.CatalogName;
 
 public interface Catalog {
-    public CatalogName getCatalogName();
-    public void setCatalogName(CatalogName catalogName);
-    public Reference getReferenceWithID(UUID id);
-    public Reference getReferenceWithName(String name);
+    public int size();
     public Set<Reference> getReferences();
+    public Reference findReferenceById(String id);
     public void addReference(Reference reference);
+    public void removeReference(Reference reference);
 }
