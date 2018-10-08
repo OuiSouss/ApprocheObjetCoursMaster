@@ -4,20 +4,32 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 
 import fr.ubordeaux.ao.domain.exception.ReferenceManagementException;
 import fr.ubordeaux.ao.domain.model.Catalog;
 import fr.ubordeaux.ao.domain.model.Reference;
+import fr.ubordeaux.ao.domain.type.CatalogName;
 
 public class CatalogImpl implements Catalog {
+    private CatalogName catalogName;
     private Map<String, Reference> references;
 
-    public CatalogImpl() {
-        Map<String, Reference> references = new HashMap<String, Reference>();
+    public CatalogImpl(CatalogName catalogName) {
+	setName(catalogName);
+	references = new HashMap<String, Reference>();
     }
 
     public int size() {
         return references.size();
+    }
+
+    public CatalogName getCatalogName() {
+	return catalogName;
+    }
+
+    private void setName(CatalogName name) {
+        this.catalogName = name;
     }
 
     public Set<Reference> getReferences() {
@@ -27,12 +39,14 @@ public class CatalogImpl implements Catalog {
     }
 
     public Reference findReferenceById(String id) {
-        if (!references.containsKey(id)) throw new ReferenceManagementException("cannot find Reference, id unknown !");
+        if (!references.containsKey(id))
+            throw new ReferenceManagementException("cannot find Reference,"
+                                                   + "id unknown !");
         return references.get(id);
     }
 
     public void addReference(Reference reference) {
-        references.put(reference.getId(), reference);
+	references.put(reference.getId(), reference);
     }
 
     public void removeReference(Reference reference) {

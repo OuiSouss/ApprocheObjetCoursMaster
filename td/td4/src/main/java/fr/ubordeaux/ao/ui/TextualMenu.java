@@ -20,48 +20,54 @@ public class TextualMenu {
     private PrintWriter out;
     private Catalog catalog;
 
-    public TextualMenu(InputStream in , PrintStream out) {
+    protected TextualMenu(BufferedReader in , PrintWriter out) {
+        this.in = in;
+        this.out = out;
+        initCollection();
+    }
+
+    protected TextualMenu(InputStream in, PrintStream out) {
         this.in = new BufferedReader(new InputStreamReader(in));
         this.out = new PrintWriter(out, true);
-	initialCatalog();
+        initCollection();
     }
 
-    private void initialCatalog() {
-	catalog = new CatalogImpl(new CatalogName("root"));
+    private void initCollection() {
+        catalog = new CatalogImpl(new CatalogName("root"));
     }
 
-    public void communicationWithUser() throws IOException {
-	boolean end = false;
-	while (!end) {
-	    out.println("(1) Add new Reference to Catalog, (2) end");
-	    out.println("Your choice is 1 or 2 :");
-	    String choise = in.readLine();
-	    switch (choise) {
-	    case "1" :
-		addNewReferenceToCatalog();
-		break;
-	    case "2" :
-		end = true;
-		break;
-	    default :
-		out.println("Can't do anything");
-	    }
-	}
+    protected void handleUserInstructions() throws IOException {
+        boolean end = false;
+        while (!end) {
+            out.println("(1) Add new Reference to Catalog,  (2) exit");
+            out.println("Your choice 1-2:");
+            String choice = in.readLine();
+            switch (choice) {
+            case "1" : createReferenceAndAddItToCatalog();
+                break;
+            case "2" : end = true;
+            default :
+            }
+        }
     }
 
-    private void addNewReferenceToCatalog() throws IOException {
-	out.println("Put information to create a Reference");
-	UUID refID = UUID.randomUUID();
-	out.println("Reference name : ");
-	String refName = in.readLine();
-	out.println("Reference description : ");
-	String refDescription = in.readLine();
-	out.println("Price (in Euro cents) : ");
-	String price = in.readLine();
-	Price refPrice = new Price(Integer.parseInt(price));
-	Reference reference = new Reference(refID, refName, refDescription,
-					    refPrice);
-	catalog.addReference(reference);
-	out.println("Reference with id : " + refID + "has been created");
+    private void createReferenceAndAddItToCatalog() throws IOException {
+        out.println("You ask to create a new reference and add it to the root"
+                    + "catalog!");
+        out.println("Reference id (any string, must be unique) : ");
+        String refId = in.readLine();
+        out.println("Reference name : ");
+        String refName = in.readLine();
+        out.println("Reference description : ");
+        String refDescription = in.readLine();
+        out.println("Price : ");
+        String price = in.readLine();
+        Price refPrice = new Price(Integer.parseInt(price));
+        Reference reference = new Reference(refId, refName, refDescription,
+                                            refPrice);
+
+        catalog.addReference(reference);
+        out.println("Reference (" + refId + ") has been created and added"
+                    + " to the catalog !");
     }
 }
