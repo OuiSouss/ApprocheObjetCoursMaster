@@ -14,8 +14,13 @@ import fr.ubordeaux.ao.infrastructure.inmemory.CatalogImpl;
 
 public class TestCatalogName {
     
-    @Test(excepted=fr.ubordeaux.ao.domain.exception.ReferenceManagementException)
+    @Test
     public void testShortName() {
-        CatalogName shortName = new CatalogName("Li");
+        try {
+            CatalogName shortName = new CatalogName("Li");
+            assert(false);
+        } catch (ReferenceManagementException e) {
+            assert(true);
+        }
     }
 }
