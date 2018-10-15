@@ -1,14 +1,17 @@
 package fr.ubordeaux.ao.ui;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.util.UUID;
+
 
 import fr.ubordeaux.ao.domain.model.Catalog;
 import fr.ubordeaux.ao.domain.model.Reference;
+import fr.ubordeaux.ao.domain.type.CatalogName;
 import fr.ubordeaux.ao.domain.type.Price;
 import fr.ubordeaux.ao.infrastructure.inmemory.CatalogImpl;
 
@@ -30,7 +33,7 @@ public class TextualMenu {
     }
 
     private void initCollection() {
-        catalog = new CatalogImpl();
+        catalog = new CatalogImpl(new CatalogName("root"));
     }
 
     protected void handleUserInstructions() throws IOException {
@@ -40,16 +43,17 @@ public class TextualMenu {
             out.println("Your choice 1-2:");
             String choice = in.readLine();
             switch (choice) {
-                case "1" : createReferenceAndAddItToCatalog();
-                            break;
-                case "2" : end = true;
-                default : 
+            case "1" : createReferenceAndAddItToCatalog();
+                break;
+            case "2" : end = true;
+            default :
             }
         }
     }
 
     private void createReferenceAndAddItToCatalog() throws IOException {
-        out.println("You ask to create a new reference and add it to the root catalog!");
+        out.println("You ask to create a new reference and add it to the root"
+                    + "catalog!");
         out.println("Reference id (any string, must be unique) : ");
         String refId = in.readLine();
         out.println("Reference name : ");
@@ -59,10 +63,11 @@ public class TextualMenu {
         out.println("Price : ");
         String price = in.readLine();
         Price refPrice = new Price(Integer.parseInt(price));
-        Reference reference = new Reference(refId, refName, refDescription, refPrice);
+        Reference reference = new Reference(refId, refName, refDescription,
+                                            refPrice);
 
         catalog.addReference(reference);
-        out.println("Reference ("+refId+") has been created and added to the catalog !");
+        out.println("Reference (" + refId + ") has been created and added"
+                    + " to the catalog !");
     }
-
 }

@@ -9,6 +9,7 @@ import java.util.Set;
 
 import fr.ubordeaux.ao.domain.model.Catalog;
 import fr.ubordeaux.ao.domain.model.Reference;
+import fr.ubordeaux.ao.domain.type.CatalogName;
 import fr.ubordeaux.ao.domain.type.Price;
 import fr.ubordeaux.ao.infrastructure.inmemory.CatalogImpl;
 
@@ -17,7 +18,7 @@ public class TestAcceptation {
 
     @Before
     public void createCatalog() {
-        catalog = new CatalogImpl();
+        catalog = new CatalogImpl(new CatalogName("Foo"));
     }
 
     @Test
@@ -25,7 +26,7 @@ public class TestAcceptation {
         Price price = new Price(1000);
         Reference reference = new Reference("ID", "Foo", "Bar", price);
         catalog.addReference(reference);
-        Set<Reference> references = catalog.getReferences();
+        Set<Reference> references = catalog.getAllReferences();
         for (Reference r : references) {
             assertEquals(r, reference);
         }
