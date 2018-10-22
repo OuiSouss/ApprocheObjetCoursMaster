@@ -14,10 +14,12 @@ import fr.ubordeaux.ao.domain.type.CatalogName;
 public class CatalogImpl implements Catalog {
     private CatalogName catalogName;
     private Map<String, Reference> references;
+    private Set<Catalog> subCatalogs;
 
     public CatalogImpl(CatalogName catalogName) {
-	setName(catalogName);
-	references = new HashMap<String, Reference>();
+        setName(catalogName);
+        references = new HashMap<String, Reference>();
+        subCatalogs = new HashSet<Catalog>();
     }
 
     public int size() {
@@ -25,14 +27,24 @@ public class CatalogImpl implements Catalog {
     }
 
     public CatalogName getCatalogName() {
-	return catalogName;
+        return catalogName;
     }
 
     private void setName(CatalogName name) {
         this.catalogName = name;
     }
 
-    public Set<Reference> getReferences() {
+    public Set<Reference> getAllReferences() {
+        if (subCatalogs.isEmpty())
+            return getOwnReferences();
+        Set<Reference> recursiveReferencesSet = getOwnReferences();
+        for (Catalog c : subCatalogs) {
+            recursiveReferencesSet.addAll(c.getAllReferences());
+        }
+        return recursiveReferencesSet;
+    }
+
+    public Set<Reference> getOwnReferences() {
         Set<Reference> result = new HashSet<Reference>();
         result.addAll(references.values());
         return result;
@@ -46,10 +58,25 @@ public class CatalogImpl implements Catalog {
     }
 
     public void addReference(Reference reference) {
-	references.put(reference.getId(), reference);
+        references.put(reference.getId(), reference);
+    }
+
+    public void addSubCatalog(Catalog catalog) {
+        for (Catalog c : subCatalogs) {
+            if (c.getCatalogName().equals(catalog.getCatalogName()))
+                throw new ReferenceManagementException("Invalid catalog name");
+        }
+        subCatalogs.add(catalog);
     }
 
     public void removeReference(Reference reference) {
         references.remove(reference.getId());
     }
+
+    /*
+
+      public void removeSubCatalog(Catalog catalog) {
+      }
+
+    */
 }

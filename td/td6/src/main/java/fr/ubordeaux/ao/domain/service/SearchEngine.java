@@ -22,7 +22,7 @@ public class SearchEngine {
     }
 
     public Reference searchReferenceById(String id) {
-        for (Reference reference : catalog.getReferences()) {
+        for (Reference reference : catalog.getAllReferences()) {
             if (reference.getId().compareTo(id)==0) {
                 return reference;
             }
@@ -33,7 +33,7 @@ public class SearchEngine {
 
     public Set<Reference> searchReferencesByName(String name) {
         Set<Reference> foundReferences = new HashSet<Reference>();
-        for (Reference reference : catalog.getReferences()) {
+        for (Reference reference : catalog.getAllReferences()) {
             if (reference.getName().compareTo(name)==0) {
                 foundReferences.add(reference);
             }

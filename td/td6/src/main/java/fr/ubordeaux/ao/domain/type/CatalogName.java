@@ -18,7 +18,7 @@ public class CatalogName {
     }
 
     private void setValue(String value) {
-	Pattern pattern = Pattern.compile("[a-zA-Z]{1,10}");
+	Pattern pattern = Pattern.compile("[a-z]{3,10}");
 	Matcher matcher = pattern.matcher(value);
 	if (!matcher.matches())
 	    throw new ReferenceManagementException("A catalog name should have"
