@@ -1,7 +1,14 @@
 package fr.ubordeaux.ao.application.command;
 
-import fr.ubordeaux.ao.domain.model.Catalog;
+import java.util.List;
+import java.util.ArrayList;
 
-public interface Command {
-    public void execute();
+import fr.ubordeaux.ao.application.command.CommandMonitor;
+
+public abstract class Command {
+    private List<CommandMonitor> monitorList;
+
+    public abstract void execute();
+    public abstract void addMonitor(CommandMonitor monitor);
+    public abstract void notifyMonitor();
 }
