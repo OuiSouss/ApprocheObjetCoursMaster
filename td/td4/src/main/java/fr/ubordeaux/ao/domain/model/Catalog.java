@@ -1,7 +1,6 @@
 package fr.ubordeaux.ao.domain.model;
 
 import java.util.Set;
-import java.util.UUID;
 
 import fr.ubordeaux.ao.domain.type.CatalogName;
 

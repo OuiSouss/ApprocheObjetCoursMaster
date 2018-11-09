@@ -6,7 +6,6 @@ import java.io.InputStreamReader;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
-import java.util.UUID;
 
 
 import fr.ubordeaux.ao.domain.model.Catalog;
