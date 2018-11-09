@@ -1,7 +1,6 @@
-package test.java.fr.ubordeaux.ao;
+package fr.ubordeaux.ao.domain.model;
 
 import static org.junit.Assert.*;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
