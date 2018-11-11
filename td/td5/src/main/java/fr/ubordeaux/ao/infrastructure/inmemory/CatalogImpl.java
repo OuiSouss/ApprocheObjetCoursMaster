@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.UUID;
 
 import fr.ubordeaux.ao.domain.exception.ReferenceManagementException;
 import fr.ubordeaux.ao.domain.model.Catalog;
@@ -17,8 +16,8 @@ public class CatalogImpl implements Catalog {
     private Set<Catalog> subCatalogs;
 
     public CatalogImpl(CatalogName catalogName) {
-	setName(catalogName);
-	references = new HashMap<String, Reference>();
+        setName(catalogName);
+        references = new HashMap<String, Reference>();
         subCatalogs = new HashSet<Catalog>();
     }
 
@@ -27,7 +26,7 @@ public class CatalogImpl implements Catalog {
     }
 
     public CatalogName getCatalogName() {
-	return catalogName;
+        return catalogName;
     }
 
     private void setName(CatalogName name) {
@@ -35,8 +34,9 @@ public class CatalogImpl implements Catalog {
     }
 
     public Set<Reference> getAllReferences() {
-        if (subCatalogs.isEmpty())
+        if (subCatalogs.isEmpty()) {
             return getOwnReferences();
+        }
         Set<Reference> recursiveReferencesSet = getOwnReferences();
         for (Catalog c : subCatalogs) {
             recursiveReferencesSet.addAll(c.getAllReferences());
@@ -51,20 +51,22 @@ public class CatalogImpl implements Catalog {
     }
 
     public Reference findReferenceById(String id) {
-        if (!references.containsKey(id))
+        if (!references.containsKey(id)) {
             throw new ReferenceManagementException("cannot find Reference,"
                                                    + "id unknown !");
+        }
         return references.get(id);
     }
 
     public void addReference(Reference reference) {
-	references.put(reference.getId(), reference);
+        references.put(reference.getId(), reference);
     }
 
     public void addSubCatalog(Catalog catalog) {
         for (Catalog c : subCatalogs) {
-            if (c.getCatalogName().equals(catalog.getCatalogName()))
+            if (c.getCatalogName().equals(catalog.getCatalogName())) {
                 throw new ReferenceManagementException("Invalid catalog name");
+            }
         }
         subCatalogs.add(catalog);
     }

@@ -10,29 +10,31 @@ public class CatalogName {
     private String value;
 
     public CatalogName(String value) {
-	setValue(value);
+        setValue(value);
     }
 
     public String getValue() {
-	return value;
+        return value;
     }
 
     private void setValue(String value) {
-	Pattern pattern = Pattern.compile("[a-z]{3,10}");
-	Matcher matcher = pattern.matcher(value);
-	if (!matcher.matches())
-	    throw new ReferenceManagementException("A catalog name should have"
+        Pattern pattern = Pattern.compile("[a-z]{3,10}");
+        Matcher matcher = pattern.matcher(value);
+        if (!matcher.matches()) {
+            throw new ReferenceManagementException("A catalog name should have"
                                                    + "less than 10 alphabetical"
                                                    + "chars");
-	this.value = value;
+        }
+        this.value = value;
     }
 
     @Override
     public boolean equals(Object other) {
-	if (! (other instanceof CatalogName))
-	    return false;
-	CatalogName otherName = (CatalogName) other;
-	return value.compareTo(otherName.getValue()) == 0;
+        if (!(other instanceof CatalogName)) {
+            return false;
+        }
+        CatalogName otherName = (CatalogName) other;
+        return value.compareTo(otherName.getValue()) == 0;
     }
 
     @Override
@@ -42,6 +44,6 @@ public class CatalogName {
 
     @Override
     public String toString() {
-	return value;
+        return value;
     }
 }
