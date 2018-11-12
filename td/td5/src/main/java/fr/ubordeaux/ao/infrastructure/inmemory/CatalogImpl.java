@@ -30,7 +30,7 @@ public class CatalogImpl implements Catalog {
     }
 
     public CatalogName getCatalogName() {
-        return catalogName;
+        return this.catalogName;
     }
 
     private void setName(CatalogName name) {
@@ -72,7 +72,7 @@ public class CatalogImpl implements Catalog {
                 throw new ReferenceManagementException("Invalid catalog name");
             }
         }
-        subCatalogs.add(catalog);
+        this.subCatalogs.add(catalog);
     }
 
     public void removeReference(Reference reference) {

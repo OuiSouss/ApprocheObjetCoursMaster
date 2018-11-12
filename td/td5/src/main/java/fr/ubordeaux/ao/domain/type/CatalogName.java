@@ -35,7 +35,7 @@ public class CatalogName {
             return false;
         }
         CatalogName otherName = (CatalogName) other;
-        return value.compareTo(otherName.getValue()) == 0;
+        return this.getValue().equals(otherName.getValue());
     }
 
     @Override

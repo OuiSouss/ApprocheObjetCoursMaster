@@ -2,11 +2,14 @@ package fr.ubordeaux.ao.domain.model;
 
 import static org.junit.Assert.*;
 
+import fr.ubordeaux.ao.domain.exception.ReferenceManagementException;
 import fr.ubordeaux.ao.domain.type.CatalogName;
 import fr.ubordeaux.ao.domain.type.Price;
 import fr.ubordeaux.ao.infrastructure.inmemory.CatalogImpl;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.Set;
 
 public class TestCatalog {
     private Catalog catalog;
@@ -37,5 +40,36 @@ public class TestCatalog {
 
         assertEquals(1, sub.size());
         assertEquals(2, catalog.size());
+    }
+
+    @Test
+    public void testSubCatalogsDifferentNames() {
+        Catalog sub1 = new CatalogImpl(new CatalogName("subu"));
+        Catalog sub2 = new CatalogImpl(new CatalogName("subu"));
+        catalog.addSubCatalog(sub1);
+        try {
+            catalog.addSubCatalog(sub2);
+            assert(false);
+        } catch (ReferenceManagementException e) {
+            assert (true);
+        }
+    }
+
+    @Test
+    public void testGetAllReferences() {
+        final int MAX = 50000;
+        for (int i=0 ; i < MAX ; i++) {
+            Reference reference = new Reference("#"+i, "test", "test", new Price(2000));
+            catalog.addReference(reference);
+        }
+
+        Catalog sub = new CatalogImpl(new CatalogName("test"));
+        catalog.addSubCatalog(sub);
+        for (int i=0 ; i < MAX ; i++) {
+            Reference reference = new Reference("#t"+i, "test", "test", new Price(2000));
+            sub.addReference(reference);
+        }
+        Set<Reference> references = catalog.getAllReferences();
+        assertEquals(MAX * 2, references.size());
     }
 }
