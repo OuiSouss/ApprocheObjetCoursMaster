@@ -29,7 +29,7 @@ public abstract class Command {
     
     private void notifyMonitor() {
         for (CommandMonitor monitor : monitorList) {
-            monitor.commandIsExecuted();
+            monitor.commandIsExecuted(id);
         }
     }
     
