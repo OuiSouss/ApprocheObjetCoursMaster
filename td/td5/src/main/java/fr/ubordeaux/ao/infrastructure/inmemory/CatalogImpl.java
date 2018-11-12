@@ -22,7 +22,11 @@ public class CatalogImpl implements Catalog {
     }
 
     public int size() {
-        return references.size();
+        int sizeAllReferences = references.size();
+        for (Catalog subCatalog : subCatalogs) {
+            sizeAllReferences += subCatalog.size();
+        }
+        return sizeAllReferences;
     }
 
     public CatalogName getCatalogName() {
@@ -75,10 +79,11 @@ public class CatalogImpl implements Catalog {
         references.remove(reference.getId());
     }
 
-    /*
-
     public void removeSubCatalog(Catalog catalog) {
+        for (Catalog c : subCatalogs) {
+            if (c.getCatalogName().equals(catalog.getCatalogName())) {
+                subCatalogs.remove(c);
+            }
+        }
     }
-
-    */
 }

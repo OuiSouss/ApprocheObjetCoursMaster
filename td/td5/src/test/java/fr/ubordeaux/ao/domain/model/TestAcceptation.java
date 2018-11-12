@@ -17,17 +17,17 @@ public class TestAcceptation {
 
     @Before
     public void createCatalog() {
-        catalog = new CatalogImpl(new CatalogName("Foo"));
+        catalog = new CatalogImpl(new CatalogName("foo"));
     }
 
     @Test
     public void testAddReferenceAndFind() {
         Price price = new Price(1000);
-        Reference reference = new Reference("ID", "Foo", "Bar", price);
+        Reference reference = new Reference("#1", "Foo", "Bar", price);
         catalog.addReference(reference);
         Set<Reference> references = catalog.getAllReferences();
         for (Reference r : references) {
-            assertEquals(r, reference);
+            assertSame(reference, r);
         }
     }
 }

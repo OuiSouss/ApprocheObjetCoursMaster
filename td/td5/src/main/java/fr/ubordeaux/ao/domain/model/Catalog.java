@@ -13,5 +13,5 @@ public interface Catalog {
     void addReference(Reference reference);
     void addSubCatalog(Catalog catalog);
     void removeReference(Reference reference);
-    // public void removeSubCatalog(Catalog catalog);
+    void removeSubCatalog(Catalog catalog);
 }

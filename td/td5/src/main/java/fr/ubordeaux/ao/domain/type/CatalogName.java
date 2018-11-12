@@ -22,8 +22,9 @@ public class CatalogName {
         Matcher matcher = pattern.matcher(value);
         if (!matcher.matches()) {
             throw new ReferenceManagementException("A catalog name should have"
-                                                   + "less than 10 alphabetical"
-                                                   + "chars");
+                                                   + "between 3 and 10"
+                                                   + "alphabetical chars in "
+                                                   + "lowercase");
         }
         this.value = value;
     }
