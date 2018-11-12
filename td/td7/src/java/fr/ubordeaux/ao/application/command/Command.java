@@ -1,12 +1,19 @@
 package fr.ubordeaux.ao.application.command;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.ArrayList;
 
 import fr.ubordeaux.ao.application.command.CommandMonitor;
 
 public abstract class Command {
     private List<CommandMonitor> monitorList;
+    private UUID id;
+    
+    public Command() {
+        id = UUID.randomUUID();
+        monitorList = new ArrayList<CommandMonitor>();
+    }
 
     public abstract void execute() {
         executeCommand();
