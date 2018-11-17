@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Set;
+import java.util.UUID;
 
 public class TestCatalog {
     private Catalog catalog;
@@ -22,7 +23,7 @@ public class TestCatalog {
     @Test
     public void testAddReference() {
         Price price = new Price(1000);
-        Reference reference = new Reference("#1", "test", "test", price);
+        Reference reference = new Reference("test", "test", price);
         catalog.addReference(reference);
         assertEquals(1, catalog.size());
     }
@@ -30,12 +31,12 @@ public class TestCatalog {
     @Test
     public void testSubCatalog() {
         Price price = new Price(1000);
-        Reference reference1 = new Reference("#1", "test", "test", price);
+        Reference reference1 = new Reference("test", "test", price);
         catalog.addReference(reference1);
 
         Catalog sub = new CatalogImpl(new CatalogName("sub"));
         catalog.addSubCatalog(sub);
-        Reference reference2 = new Reference("#1", "test", "test", price);
+        Reference reference2 = new Reference("test", "test", price);
         sub.addReference(reference2);
 
         assertEquals(1, sub.size());
@@ -58,18 +59,64 @@ public class TestCatalog {
     @Test
     public void testGetAllReferences() {
         final int MAX = 50000;
-        for (int i=0 ; i < MAX ; i++) {
-            Reference reference = new Reference("#"+i, "test", "test", new Price(2000));
+        for (int i = 0 ; i < MAX ; ++i) {
+            Reference reference = new Reference("test", "test", new Price(2000));
             catalog.addReference(reference);
         }
 
         Catalog sub = new CatalogImpl(new CatalogName("test"));
         catalog.addSubCatalog(sub);
-        for (int i=0 ; i < MAX ; i++) {
-            Reference reference = new Reference("#t"+i, "test", "test", new Price(2000));
+        for (int i = 0 ; i < MAX ; ++i) {
+            Reference reference = new Reference("test", "test", new Price(2000));
             sub.addReference(reference);
         }
         Set<Reference> references = catalog.getAllReferences();
         assertEquals(MAX * 2, references.size());
+    }
+
+    @Test
+    public void testGetOwnReferences() {
+       final int MAX = 10000;
+       for (int i = 0; i < MAX; ++i) {
+           Reference reference = new Reference("test", "test", new Price(1000));
+           catalog.addReference(reference);
+       }
+       Set<Reference> references = catalog.getOwnReferences();
+       assertEquals(MAX, references.size());
+    }
+
+    @Test
+    public void testFindReferenceById() {
+        Price price = new Price(1000);
+        Reference reference1 = new Reference("test", "test", price);
+        catalog.addReference(reference1);
+
+        UUID id = reference1.getId();
+        assertEquals(reference1, catalog.findReferenceById(id));
+    }
+
+    @Test
+    public void testRemoveReference() {
+        Price price = new Price(1000);
+        Reference reference1 = new Reference("test", "test", price);
+        catalog.addReference(reference1);
+        catalog.removeReference(reference1);
+        assertEquals(0, catalog.size());
+    }
+
+    @Test
+    public void testRemoveSubCatalog() {
+        Price price = new Price(1000);
+        Reference reference1 = new Reference("test", "test", price);
+        catalog.addReference(reference1);
+
+        Catalog sub = new CatalogImpl(new CatalogName("sub"));
+        catalog.addSubCatalog(sub);
+        Reference reference2 = new Reference("test", "test", price);
+        sub.addReference(reference2);
+
+        catalog.removeSubCatalog(sub);
+
+        assertEquals(1, catalog.size());
     }
 }

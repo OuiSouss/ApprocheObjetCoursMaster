@@ -1,23 +1,24 @@
 package fr.ubordeaux.ao.infrastructure.inmemory;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
 import fr.ubordeaux.ao.domain.exception.ReferenceManagementException;
 import fr.ubordeaux.ao.domain.model.Catalog;
 import fr.ubordeaux.ao.domain.model.Reference;
 import fr.ubordeaux.ao.domain.type.CatalogName;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.UUID;
+
 public class CatalogImpl implements Catalog {
     private CatalogName catalogName;
-    private Map<String, Reference> references;
+    private Map<UUID, Reference> references;
     private Set<Catalog> subCatalogs;
 
     public CatalogImpl(CatalogName catalogName) {
         setName(catalogName);
-        references = new HashMap<String, Reference>();
+        references = new HashMap<UUID, Reference>();
         subCatalogs = new HashSet<Catalog>();
     }
 
@@ -54,7 +55,7 @@ public class CatalogImpl implements Catalog {
         return result;
     }
 
-    public Reference findReferenceById(String id) {
+    public Reference findReferenceById(UUID id) {
         if (!references.containsKey(id)) {
             throw new ReferenceManagementException("cannot find Reference,"
                                                    + "id unknown !");

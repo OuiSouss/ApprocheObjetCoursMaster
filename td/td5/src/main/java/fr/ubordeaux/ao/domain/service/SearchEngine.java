@@ -2,6 +2,7 @@ package fr.ubordeaux.ao.domain.service;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 import fr.ubordeaux.ao.domain.exception.ReferenceManagementException;
 import fr.ubordeaux.ao.domain.model.Catalog;
@@ -22,7 +23,7 @@ public class SearchEngine {
         this.catalog = catalog;
     }
 
-    public Reference searchReferenceById(String id) {
+    public Reference searchReferenceById(UUID id) {
         for (Reference reference : catalog.getAllReferences()) {
             if (reference.getId().compareTo(id) == 0) {
                 return reference;

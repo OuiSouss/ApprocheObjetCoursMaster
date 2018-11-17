@@ -1,30 +1,23 @@
 package fr.ubordeaux.ao.domain.model;
 
 import java.util.Objects;
+import java.util.UUID;
 
 import fr.ubordeaux.ao.domain.exception.ReferenceManagementException;
 import fr.ubordeaux.ao.domain.type.Price;
 
 public class Reference {
-    private String id;
+    private UUID id;
     private String name;
     private String description;
     private Price basePrice;
 
-    public Reference(String id, String name, String description,
+    public Reference(String name, String description,
                      Price basePrice) {
-        this.setReferenceId(id);
+        this.id = UUID.randomUUID();
         this.setName(name);
         this.setDescription(description);
         this.setBasePrice(basePrice);
-    }
-
-    private void setReferenceId(String id) {
-        if (id == null) {
-            throw new ReferenceManagementException("cannot create reference"
-                                                   + "with null id");
-        }
-        this.id = id;
     }
 
     private void setName(String name) {
@@ -55,7 +48,7 @@ public class Reference {
         return this.name;
     }
 
-    public String getId() {
+    public UUID getId() {
         return this.id;
     }
 

@@ -56,8 +56,6 @@ public class TextualMenu {
     private void createReferenceAndAddItToCatalog() throws IOException {
         out.println("You ask to create a new reference and add it to the root"
                     + "catalog!");
-        out.println("Reference id (any string, must be unique) : ");
-        String refId = in.readLine();
         out.println("Reference name : ");
         String refName = in.readLine();
         out.println("Reference description : ");
@@ -65,11 +63,11 @@ public class TextualMenu {
         out.println("Price : ");
         String price = in.readLine();
         Price refPrice = new Price(Integer.parseInt(price));
-        Reference reference = new Reference(refId, refName, refDescription,
+        Reference reference = new Reference(refName, refDescription,
                                             refPrice);
 
         catalog.addReference(reference);
-        out.println("Reference (" + refId + ") has been created and added"
-                    + " to the catalog !");
+        out.println("Reference (" + reference.getId() + ") has been created and"
+                    + "added to the catalog !");
     }
 }
