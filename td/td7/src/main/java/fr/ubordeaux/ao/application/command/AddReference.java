@@ -8,11 +8,12 @@ public class AddReference extends Command {
     private Reference reference;
 
     public AddReference(Catalog catalog, Reference reference) {
+        super();
         this.catalog = catalog;
         this.reference = reference;
     }
 
-    public void execute() {
+    public void executeCommand() {
         catalog.addReference(reference);
     }
 }

@@ -3,7 +3,7 @@ apply plugin: 'java'
 group = 'fr.ubordeaux.ao'
 version = '1.0-SNAPSHOT'
 
-description = """TD4"""
+description = """TD7"""
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -31,7 +31,7 @@ tasks.withType(FindBugs) {
 }
 
 apply plugin: 'application'
-mainClassName = "fr.ubordeaux.ao.ui.ConsoleMain"
+mainClassName = "fr.ubordeaux.ao.ui.CommandLineMain"
 
 run {
    standardInput = System.in
