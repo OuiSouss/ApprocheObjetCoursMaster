@@ -1,7 +1,5 @@
 package fr.ubordeaux.ao.application.command;
 
-import fr.ubordeaux.ao.domain.model.Catalog;
-
-public interface Command {
-    public void execute();
+public abstract class Command {
+    public abstract void execute();
 }

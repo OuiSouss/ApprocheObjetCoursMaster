@@ -1,33 +1,37 @@
 package fr.ubordeaux.ao.infrastructure.inmemory;
 
+import fr.ubordeaux.ao.domain.exception.ReferenceManagementException;
+import fr.ubordeaux.ao.domain.model.Catalog;
+import fr.ubordeaux.ao.domain.model.Reference;
+import fr.ubordeaux.ao.domain.type.CatalogName;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
-import fr.ubordeaux.ao.domain.exception.ReferenceManagementException;
-import fr.ubordeaux.ao.domain.model.Catalog;
-import fr.ubordeaux.ao.domain.model.Reference;
-import fr.ubordeaux.ao.domain.type.CatalogName;
-
 public class CatalogImpl implements Catalog {
     private CatalogName catalogName;
-    private Map<String, Reference> references;
+    private Map<UUID, Reference> references;
     private Set<Catalog> subCatalogs;
 
     public CatalogImpl(CatalogName catalogName) {
         setName(catalogName);
-        references = new HashMap<String, Reference>();
+        references = new HashMap<UUID, Reference>();
         subCatalogs = new HashSet<Catalog>();
     }
 
     public int size() {
-        return references.size();
+        int sizeAllReferences = references.size();
+        for (Catalog subCatalog : subCatalogs) {
+            sizeAllReferences += subCatalog.size();
+        }
+        return sizeAllReferences;
     }
 
     public CatalogName getCatalogName() {
-        return catalogName;
+        return this.catalogName;
     }
 
     private void setName(CatalogName name) {
@@ -35,8 +39,9 @@ public class CatalogImpl implements Catalog {
     }
 
     public Set<Reference> getAllReferences() {
-        if (subCatalogs.isEmpty())
+        if (subCatalogs.isEmpty()) {
             return getOwnReferences();
+        }
         Set<Reference> recursiveReferencesSet = getOwnReferences();
         for (Catalog c : subCatalogs) {
             recursiveReferencesSet.addAll(c.getAllReferences());
@@ -50,10 +55,11 @@ public class CatalogImpl implements Catalog {
         return result;
     }
 
-    public Reference findReferenceById(String id) {
-        if (!references.containsKey(id))
+    public Reference findReferenceById(UUID id) {
+        if (!references.containsKey(id)) {
             throw new ReferenceManagementException("cannot find Reference,"
                                                    + "id unknown !");
+        }
         return references.get(id);
     }
 
@@ -63,20 +69,22 @@ public class CatalogImpl implements Catalog {
 
     public void addSubCatalog(Catalog catalog) {
         for (Catalog c : subCatalogs) {
-            if (c.getCatalogName().equals(catalog.getCatalogName()))
+            if (c.getCatalogName().equals(catalog.getCatalogName())) {
                 throw new ReferenceManagementException("Invalid catalog name");
+            }
         }
-        subCatalogs.add(catalog);
+        this.subCatalogs.add(catalog);
     }
 
     public void removeReference(Reference reference) {
         references.remove(reference.getId());
     }
 
-    /*
-
-      public void removeSubCatalog(Catalog catalog) {
-      }
-
-    */
+    public void removeSubCatalog(Catalog catalog) {
+        for (Catalog c : subCatalogs) {
+            if (c.getCatalogName().equals(catalog.getCatalogName())) {
+                subCatalogs.remove(c);
+            }
+        }
+    }
 }

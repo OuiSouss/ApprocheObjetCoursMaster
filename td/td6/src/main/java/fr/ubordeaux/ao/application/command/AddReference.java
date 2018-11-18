@@ -3,7 +3,7 @@ package fr.ubordeaux.ao.application.command;
 import fr.ubordeaux.ao.domain.model.Catalog;
 import fr.ubordeaux.ao.domain.model.Reference;
 
-public class AddReference implements Command {
+public class AddReference extends Command {
     private Catalog catalog;
     private Reference reference;
 

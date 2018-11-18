@@ -2,6 +2,7 @@ package fr.ubordeaux.ao.domain.service;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 import fr.ubordeaux.ao.domain.exception.ReferenceManagementException;
 import fr.ubordeaux.ao.domain.model.Catalog;
@@ -15,15 +16,16 @@ public class SearchEngine {
     }
 
     private void setCatalog(Catalog catalog) {
-        if (catalog == null)
+        if (catalog == null) {
             throw new ReferenceManagementException("cannot create SearchEngine"
                                                    + "with null as catalog");
+        }
         this.catalog = catalog;
     }
 
-    public Reference searchReferenceById(String id) {
+    public Reference searchReferenceById(UUID id) {
         for (Reference reference : catalog.getAllReferences()) {
-            if (reference.getId().compareTo(id)==0) {
+            if (reference.getId().compareTo(id) == 0) {
                 return reference;
             }
         }
@@ -34,7 +36,7 @@ public class SearchEngine {
     public Set<Reference> searchReferencesByName(String name) {
         Set<Reference> foundReferences = new HashSet<Reference>();
         for (Reference reference : catalog.getAllReferences()) {
-            if (reference.getName().compareTo(name)==0) {
+            if (reference.getName().compareTo(name) == 0) {
                 foundReferences.add(reference);
             }
         }
