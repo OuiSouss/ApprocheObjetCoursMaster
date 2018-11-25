@@ -1,10 +1,10 @@
 package fr.ubordeaux.ao.ordermanagement.domain.model;
 
-import java.util.Map;
+import java.util.List;
 import java.util.UUID;
 
-import fr.ubordeaux.ao.ordermanagement.domain.model.Reference;
-
 public interface ReferenceRepository {
-    Map<Reference, Integer> getMapReferenceWithID(UUID id);
+    void add(Reference reference);
+    List<Reference> getAllReference();
+    Reference getReferenceWithID(UUID id);
 }
