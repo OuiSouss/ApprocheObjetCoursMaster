@@ -17,6 +17,7 @@ import fr.ubordeaux.ao.referencemanagement.domain.type.CatalogName;
 import fr.ubordeaux.ao.referencemanagement.domain.type.Price;
 import fr.ubordeaux.ao.referencemanagement.infrastructure.command.GatewayImpl;
 import fr.ubordeaux.ao.referencemanagement.infrastructure.command.HandlerImpl;
+import fr.ubordeaux.ao.referencemanagement.infrastructure.csv.CatalogCSVImpl;
 import fr.ubordeaux.ao.referencemanagement.infrastructure.inmemory.CatalogImpl;
 
 public class TextualMenu {
@@ -51,8 +52,8 @@ public class TextualMenu {
     void handleUserInstructions() throws IOException {
         boolean end = false;
         while (!end) {
-            out.println("(1) Add new Reference to Catalog,  (2) exit");
-            out.println("Your choice 1-2:");
+            out.println("(1) Add new Reference to Catalog,  (2) exit, (3) Add new Reference to catalog in csv");
+            out.println("Your choice 1-3:");
             String choice = in.readLine();
             switch (choice) {
             case "1":
@@ -61,10 +62,36 @@ public class TextualMenu {
             case "2":
                 end = true;
                 break;
+            case "3":
+                createReferenceAndAddItToCatalogCSV();
+                break;
             default:
                 end = true;
             }
         }
+    }
+
+    private void createReferenceAndAddItToCatalogCSV() throws IOException {
+        out.println("You ask to create a new reference and add it to the root"
+                    + "catalog!");
+        out.println("Reference name : ");
+        String refName = in.readLine();
+        out.println("Reference description : ");
+        String refDescription = in.readLine();
+        out.println("Price : ");
+        String price = in.readLine();
+        Price refPrice = new Price(Integer.parseInt(price));
+        Reference reference = new Reference(refName, refDescription,
+                                            refPrice);
+        out.println("Catalog Name (root) : ");
+        String name = in.readLine();
+        out.println("Filename : ");
+        String filename = in.readLine();
+        CatalogName catalogName = new CatalogName(name);
+        Catalog newCatalog = new CatalogCSVImpl(catalogName, filename);
+        newCatalog.addReference(reference);
+        int size = newCatalog.size();
+        out.println("size of catalog is : " + size);
     }
 
     private void createReferenceAndAddItToCatalog() throws IOException {

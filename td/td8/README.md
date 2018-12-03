@@ -14,6 +14,9 @@ Pour se faire vous allez ajouter un nouveau package dans la couche infrastructur
 
 Vous devez dans un premier temps définir la structuration de votre fichier CSV qui sera la sauvegarde du catalog. Charge à vous de définir les colonnes.
 
+ SubCatalog name | ReferenceID | Reference name | Reference description | Reference basePrice
+ ----------------|-------------|----------------|-----------------------|--------------------
+
 Vous allez ensuite construire une nouvelle implémentation de la classe Catalogue (CatalogImpl)
 
 * L'instantiation de ce Catalogue devra prendre en paramètre le nom d'un fichier de sauvegarde
