@@ -20,6 +20,21 @@ public class Reference {
         this.setBasePrice(basePrice);
     }
 
+    public Reference(UUID id, String name, String description,
+                     Price basePrice) {
+        this.setUUID(id);
+        this.setName(name);
+        this.setDescription(description);
+        this.setBasePrice(basePrice);
+    }
+
+    private void setUUID(UUID id) {
+        if (id == null){
+            throw new ReferenceManagementException("UUID is null");
+        }
+        this.id = id;
+    }
+
     private void setName(String name) {
         if (name == null) {
             throw new ReferenceManagementException("cannot create reference"

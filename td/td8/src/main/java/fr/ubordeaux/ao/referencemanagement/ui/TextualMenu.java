@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.util.Set;
 
 import fr.ubordeaux.ao.referencemanagement.application.command.AddReference;
 import fr.ubordeaux.ao.referencemanagement.application.command.AddSubCatalog;
@@ -65,9 +66,28 @@ public class TextualMenu {
             case "3":
                 createReferenceAndAddItToCatalogCSV();
                 break;
+            case "4":
+                getAllReferencesAndPrint();
+                break;
             default:
                 end = true;
             }
+        }
+    }
+
+    private void getAllReferencesAndPrint() {
+        out.println("You ask to see all reference of catalog!");
+        out.println("Filename : ");
+        String filename;
+        try {
+            filename = in.readLine();
+            Catalog newCatalog = new CatalogCSVImpl(filename);
+            Set<Reference> referenceSet = newCatalog.getAllReferences();
+            for (Reference reference : referenceSet) {
+                out.println(reference.toString());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -87,11 +107,13 @@ public class TextualMenu {
         String name = in.readLine();
         out.println("Filename : ");
         String filename = in.readLine();
-        CatalogName catalogName = new CatalogName(name);
-        Catalog newCatalog = new CatalogCSVImpl(catalogName, filename);
-        newCatalog.addReference(reference);
-        int size = newCatalog.size();
-        out.println("size of catalog is : " + size);
+        if (name != "\n") {
+            CatalogName catalogName = new CatalogName("root");
+            Catalog newCatalog = new CatalogCSVImpl(catalogName, filename);
+            newCatalog.addReference(reference);
+            int size = newCatalog.size();
+            out.println("size of catalog is : " + size);
+        }
     }
 
     private void createReferenceAndAddItToCatalog() throws IOException {
